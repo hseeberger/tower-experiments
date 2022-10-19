@@ -18,7 +18,7 @@ impl<S> Layer<S> for LogLayer {
     }
 }
 
-/// Log service, wrapping another service, logging its request and reponse.
+/// Log service, wrapping another service, logging its requests and reponses.
 #[derive(Debug, Clone)]
 pub struct LogService<S> {
     inner: S,
@@ -34,13 +34,14 @@ where
     S::Future: Send + 'static,
     R: Debug,
 {
-    /// Same response type as wrapped service.
+    /// Same response type as the wrapped service.
     type Response = S::Response;
 
-    /// Same error type as wrapped service.
+    /// Same error type as the wrapped service.
     type Error = S::Error;
 
-    /// Dynamically typed boxed future to account for calling `inspect` to log the request.
+    /// Same "shape" of the `Future` as the wrappped service, but dynamically typed boxed `Future`
+    /// to log the request via chaining an `inspect` call.
     type Future = BoxFuture<'static, Result<Self::Response, Self::Error>>;
 
     /// Always delegate readiness to the inner service.

@@ -6,7 +6,7 @@ use std::{
 };
 use tower::Service;
 
-/// A request to the echo service, just wrapping a `String`.
+/// A request to the [EchoService], just wrapping a `String`.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct EchoRequest(String);
 
@@ -27,7 +27,7 @@ where
     }
 }
 
-/// A response from the echo service, just wrapping a `String`.
+/// A response from the [EchoService], just wrapping a `String`.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct EchoResponse(String);
 
@@ -38,20 +38,19 @@ impl Display for EchoResponse {
     }
 }
 
-/// Echo service, responding to requests with an echo, i.e. a response with the same content like
-/// the request.
+/// Echo service, responding to an [EchoRequest] with an [EchoResponse] with the same content.
 #[derive(Debug, Clone)]
 pub struct EchoService;
 
-/// Tower `Service` implementation for [EchoService]: always ready, never fails and responds
-/// immediately with an echo, i.e. a response with the same content like the request.
+/// Tower `Service` implementation for [EchoService]: always ready, calls never fail and returned
+/// `Future`s are ready immediately.
 impl Service<EchoRequest> for EchoService {
     type Response = EchoResponse;
 
     /// This service never fails.
     type Error = Infallible;
 
-    /// This service responds immediately.
+    /// Responses of this service are ready immediately.
     type Future = Ready<Result<Self::Response, Self::Error>>;
 
     /// Always return `Poll::Ready`: this service is always ready.
@@ -59,7 +58,7 @@ impl Service<EchoRequest> for EchoService {
         Poll::Ready(Ok(()))
     }
 
-    /// Always return an echo, i.e. a response with the same content like the request.
+    /// Always return an [EchoResponse] with the same content like the [EchoRequest].
     fn call(&mut self, req: EchoRequest) -> Self::Future {
         ready(Ok(EchoResponse(req.0)))
     }
