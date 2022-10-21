@@ -52,7 +52,7 @@ impl Service<EchoRequest> for EchoService {
     type Error = Infallible;
 
     /// This service responds immediately.
-    type Future = Ready<Result<Self::Response, Infallible>>;
+    type Future = Ready<Result<Self::Response, Self::Error>>;
 
     /// Always return `Poll::Ready`: this service is always ready.
     fn poll_ready(&mut self, _cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
