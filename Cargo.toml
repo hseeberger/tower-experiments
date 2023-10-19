@@ -2,21 +2,18 @@
 name          = "tower-experiments"
 version       = "0.1.0"
 edition       = "2021"
-description   = "Experiments and demos for the Tower library"
+description   = "Experiments and demos for the Tower library."
 authors       = [ "Heiko Seeberger <git@heikoseeberger.de>" ]
-license       = "Apache-2.0"
+license-file  = "LICENSE"
 readme        = "README.md"
 homepage      = "https://github.com/hseeberger/tower-experiments"
 repository    = "https://github.com/hseeberger/tower-experiments"
 documentation = "https://github.com/hseeberger/tower-experiments"
 
 [dependencies]
-anyhow             = { version = "1" }
-futures            = { version = "0" }
-tokio              = { version = "1", features = [ "full" ] }
-tower              = { version = "0" }
-tracing            = { version = "0" }
-tracing-subscriber = { version = "0", features = [ "fmt", "json", "env-filter", "smallvec" ], default-features = false }
-
-[dev-dependencies]
-tower = { version = "0", features = [ "full" ] }
+anyhow             = { version = "1.0" }
+futures            = { version = "0.3" }
+tokio              = { version = "1", features = [ "macros", "rt-multi-thread" ] }
+tower              = { version = "0.4", features = [ "full" ] }
+tracing            = { version = "0.1" }
+tracing-subscriber = { version = "0.3", features = [ "env-filter", "fmt", "json" ] }
